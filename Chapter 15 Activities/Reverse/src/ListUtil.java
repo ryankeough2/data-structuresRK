@@ -12,21 +12,12 @@ public class ListUtil
     */
     public static void reverse(LinkedList<String> strings)
     {
-        LinkedList<String> rev = strings;
-        //cycles through LL rev to the end
-/*          
- * i=3 j=0  Dick - Tom
- * i=2 j=1  Harry - Romeo
- * i=1 j=2
- * i=0 j=3
- */
+        LinkedList<String> rev =(LinkedList) strings.clone();
 
-        
         for(int i = strings.size()- 1, j = 0;j<strings.size();j++, i-- ){
             String var = rev.get(i);
-            System.out.println(var);
             strings.set(j,var);
         }
-       
+        
     }
 }
