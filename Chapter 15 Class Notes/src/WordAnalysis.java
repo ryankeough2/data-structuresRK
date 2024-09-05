@@ -17,6 +17,15 @@ public class WordAnalysis
                 System.out.println(word);
             }
         }
+        System.out.println("There are "+novWords.size()+" unique words in the novel");
+        //print words with more than 3 letters
+        Iterator<String> it = novWords.iterator();
+        while(it.hasNext()){
+            if(it.next().length() <=3){
+                it.remove();
+            }
+        }
+        System.out.println("There are "+novWords.size()+" unique words in the novel w/ more that 3 letters");
     }
 
     /**
