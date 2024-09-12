@@ -96,7 +96,9 @@ public class SudokuSolver {
          */
         Set<Integer> possibleNums = new HashSet<Integer>();
         possibleNums.addAll(this.nums);
-        
+        possibleNums.removeAll(this.rows.get(nextRow));
+        possibleNums.removeAll(this.cols.get(nextCol));
+        possibleNums.removeAll(this.squares.get(nextRow / M * M + nextCol / M));
         // ...
 
         // if there are no possible numbers, we cannot solve the board in its current state
@@ -114,6 +116,7 @@ public class SudokuSolver {
                 // the board is solved!
                 return true;
             } else {
+                
                 /*
                  Undo the move before trying another possible number by setting the corresponding
                  element in the grid back to 0 and removing possibleNum from all three corresponding
