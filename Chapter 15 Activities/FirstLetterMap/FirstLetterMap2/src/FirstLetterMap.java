@@ -28,7 +28,10 @@ public class FirstLetterMap
                 // Update the map here
                 // Modify Worked Example 15.1
                 String count = firstLetter.get(c);
-                if(count == null ){count = word;}else{count = count + ", " + word;}
+                if(count == null )
+                    {count = word;}
+                else
+                    {count = count + ", " + word;}
 
                 firstLetter.put(c,count);
             }

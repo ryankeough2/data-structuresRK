@@ -25,9 +25,9 @@ public class StringLengthMap
                 String word = clean(in.next());
                 Integer len = word.length();
                 String count = wordLength.get(len);
-                if(count == null ){count = word;}else{count = count + ", " + word;}
-                //else if(count.contains(word)){count = count;} // removes the extra words
-               
+                if(count == null ){count = word;}
+                else if(count.contains(word)){count = count;} 
+                else{count = count + ", " + word;}
 
                 wordLength.put(len,count);
                 // Update the map here
