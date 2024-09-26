@@ -1,3 +1,4 @@
+import java.time.chrono.ThaiBuddhistChronology;
 import java.util.NoSuchElementException;
 
 /**
@@ -8,13 +9,18 @@ import java.util.NoSuchElementException;
 */
 public class LinkedList
 {
-
+    private Node first;
+    //first refers to the first node of the list
+    //if the list is empty first = null
 
     /**
         Constructs an empty linked list.
     */
-
-
+    
+    public LinkedList()
+    {
+        this.first = null;
+    }
 
 
     /**
@@ -22,7 +28,16 @@ public class LinkedList
         @return the first element in the linked list
     */
 
-
+    public Object getFirst()
+    {   
+        if(this.first == null){
+            throw new NoSuchElementException();
+        }
+            
+        
+        return this.first.data;
+        
+    }
 
 
     /**
@@ -30,7 +45,15 @@ public class LinkedList
         @return the removed element
     */
 
-
+    public Object removeFirst()
+    {
+        if(this.first == null){
+            throw new NoSuchElementException();
+        }
+        Object el = this.first.data;
+        this.first = this.first.next;
+        return el;
+    }
 
 
 
@@ -38,7 +61,13 @@ public class LinkedList
         Adds an element to the front of the linked list.
         @param element the element to add
     */
-
+    public void addFirst(Object e)
+    {
+        Node newNode = new Node();
+        newNode.data = e;
+        newNode.next = this.first;
+        this.first = newNode;
+    }
 
 
 
@@ -47,15 +76,22 @@ public class LinkedList
         Returns an iterator for iterating through this list.
         @return an iterator for iterating through this list
     */
-
+    public ListIterator listIterator(){
+        return new LinkedListIterator();
+    }
 
 
 
 
     //Class Node
+    static class Node{//static b/c it does not need access to anything in linked list
+        public Node next;
+        public Object data;
 
 
-    class LinkedListIterator //implements ListIterator
+    }
+
+    class LinkedListIterator implements ListIterator // gives error if you don't implement the implements!
     {
       //private data
 

@@ -25,7 +25,15 @@ public class StringLengthMap2
                 String word = clean(in.next());
                 Integer len = word.length();
 
-                wordLength.merge(len, word,{ (oldValue, notPresentValue) -> reuoldValue + ", " + notPresentValue});
+                wordLength.merge(len, word, (oldValue, notPresentValue) -> 
+                {if(oldValue.contains(notPresentValue))
+                    return oldValue;
+
+                return oldValue + ", " + notPresentValue;
+                 
+                    
+                
+                });
                 
                 
 
