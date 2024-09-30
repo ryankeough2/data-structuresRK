@@ -1,4 +1,3 @@
-import java.time.chrono.ThaiBuddhistChronology;
 import java.util.NoSuchElementException;
 
 /**
@@ -91,22 +90,46 @@ public class LinkedList
 
     }
 
-    class LinkedListIterator implements ListIterator // gives error if you don't implement the implements!
+    class LinkedListIterator implements ListIterator // gives error if you don't implement the implements
     {
       //private data
 
+        private Node position;
+        private Node previous; 
+        private boolean isAfterNext;
+
+        //^ in case you need to remove it
 
         /**
             Constructs an iterator that points to the front
             of the linked list.
         */
-
-
+        public LinkedListIterator()
+        {
+            position = null;
+            previous = null;
+            isAfterNext =false;
+        }
         /**
             Moves the iterator past the next element.
             @return the traversed element
         */
+        public Object next(){
+            isAfterNext= true;
+            if(!hasNext()){
+                throw new NoSuchElementException();
+            }
+            previous = position;
+            
+            if(position == null){
+                position = first;
+            }
+            else{
+                position = position.next;
+            }
 
+            return position.data;
+        }
 
 
 
@@ -115,6 +138,14 @@ public class LinkedList
             Tests if there is an element after the iterator position.
             @return true if there is an element after the iterator position
         */
+        public boolean hasNext(){
+            if(position == null){//iterator hasn't moved
+                return first != null;
+            }
+
+            //iterator has moved
+            return position.next != null;
+        }
 
 
         /**
@@ -123,7 +154,23 @@ public class LinkedList
             @param element the element to add
         */
 
-
+        public void add(Object e){
+            
+            //check if the iterator is at the begining
+            if(position == null){
+                addFirst(e);
+                position = first;
+            }
+            else{
+                Node newNode = new Node();
+                newNode.data = e;//sets the newNode to haver the value of the object
+                newNode.next = position.next;//sets the newNode to have the next address to the next addreass of the current posiution
+                //set the next element of the current position to point to our new node
+                position.next = newNode;//changes the next of the current position to the newNode
+                position = newNode;//changes the position to be the new node
+            }
+            isAfterNext= false;
+        }
 
 
 
@@ -133,7 +180,22 @@ public class LinkedList
             only be called after a call to the next() method.
         */
 
-
+        public void remove(){
+            if(!isAfterNext){
+                throw new IllegalStateException();
+            }
+            if(position == first)
+            {   
+                removeFirst();
+                position = null;
+            }
+            else{
+                previous.next = position.next;//changes the previous to point to the node after the position
+                position = previous;//changes position to the previous position
+                
+            }
+            isAfterNext= false;
+        }
 
 
 
@@ -143,9 +205,23 @@ public class LinkedList
             Sets the last traversed element to a different value.
             @param element the element to set
         */
-
+        public void set(Object e){
+            if(!isAfterNext){
+                throw new IllegalStateException();
+            }
+            position.data = e;
+        }
 
 
 
     }//LinkedListIterator
+    public String toString(){
+        String data  = "[";
+        ListIterator it = listIterator();
+        while(it.hasNext()){
+            data +=  it.next() +", ";
+        }
+        data += "]"
+        return data;
+    }
 }//LinkedList

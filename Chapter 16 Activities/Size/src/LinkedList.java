@@ -24,7 +24,26 @@ public class LinkedList
     */
     public int size()
     {
-        . . .
+       size(first);
+       LinkedListIterator it = new LinkedListIterator();
+       int count = 0;
+       while(it.hasNext()){
+            it.next();
+            count++;
+       }
+       return count;
+    }
+    
+    private static int count = 0;
+
+    private static int size(Node start)
+    {
+        count++;
+        if(start.next == null)
+            return count;
+        
+        start = start.next;
+        return size(start);
     }
 
     /**
@@ -37,6 +56,7 @@ public class LinkedList
             throw new NoSuchElementException();
         return first.data;
     }
+    
 
     /**
         Removes the first element in the linked list.
