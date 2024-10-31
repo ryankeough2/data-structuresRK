@@ -50,6 +50,24 @@ public class BinaryTree
         public Object data;
         public Node left;
         public Node right;
+        public int count;
+        public int numOf1child(){
+            count = 0;
+            if((left == null || right == null) && (left != null || right != null)){
+                if(left == null){
+                    return count = 1 + right.numOf1child();
+                }
+                else{
+                    return count = 1 + left.numOf1child();
+                }
+            }
+            if(right != null)
+                count += right.numOf1child();
+            if (left != null)
+                count += left.numOf1child();
+            return count;
+        }
+        
     }
 
     /**
@@ -101,5 +119,8 @@ public class BinaryTree
         BinaryTree result = new BinaryTree();
         result.root = root.right;
         return result;
+    }
+    public int no1c(){
+        return root.numOf1child();
     }
 }
